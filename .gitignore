@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+sftp-config.json
+
+# NPM
+node_modules/
+package-lock.json
+
+# Others
+__*/
+todo.txt
+notes.txt
+testing.html
