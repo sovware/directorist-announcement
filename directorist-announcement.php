@@ -38,6 +38,7 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 		public function init() {
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 			add_action( 'directorist_loaded', array( $this, 'includes' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
 		}
 
 		public static function plugins_loaded() {
@@ -68,6 +69,24 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 			if ( file_exists( $file ) ) {
 				include $file;
 			}
+		}
+
+		public function scripts() {
+
+			//CSS Register
+			wp_register_style( 'directorist-announcement-style', plugin_dir_url(__FILE__) . 'assets/css/announcement-main.css', array(), DIRECTORIST_ANNOUNCEMENT_VERSION );
+
+			//JS Register
+			wp_register_script( 'directorist-announcement-admin-script', plugin_dir_url(__FILE__) . 'assets/js/admin.js', array( 'jquery' ), DIRECTORIST_ANNOUNCEMENT_VERSION, true );
+			wp_register_script( 'directorist-announcement-script', plugin_dir_url(__FILE__) . 'assets/js/main.js', array( 'jquery' ), DIRECTORIST_ANNOUNCEMENT_VERSION, true );
+
+			//CSS Enqueue
+			wp_enqueue_style( 'directorist-announcement-style' );
+
+			//JS Enqueue
+			wp_enqueue_script( 'directorist-announcement-admin-script' );
+			wp_enqueue_script( 'directorist-announcement-script' );
+
 		}
 	}
 
