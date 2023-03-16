@@ -53,10 +53,10 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 		}
 
 		public function includes() {
-			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/helpers.php';
-			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/settings.php';
-			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/frontend.php';
-			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/content-update.php';
+			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-helpers.php';
+			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-settings.php';
+			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-announcement-view.php';
+			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-content-update.php';
 		}
 
 		public static function get_template( $template_file, $args = array() ) {

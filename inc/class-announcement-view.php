@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   1.0
@@ -33,12 +32,12 @@ class DA_Frontend
 	public function dashboard_tabs($dashboard_tabs, $args)
 	{
 		// Tabs
-		$announcement_tab 	= get_directorist_option('announcement_tab', 1);
+		$announcement_tab = get_directorist_option('announcement_tab', 1);
 		
 		if ($announcement_tab) {
 
 			ob_start();
-			Directorist_Announcement::get_template('inc/content', ['dashboard' => $args]);
+			Directorist_Announcement::get_template('template-parts/announcement-list', ['dashboard' => $args]);
 			$content = ob_get_clean();
 
 			$dashboard_tabs['dashboard_announcement'] = array(

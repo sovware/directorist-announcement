@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author  wpWax
  * @since   1.0
@@ -126,7 +125,6 @@ class DA_Helpers
 		return $new_posts;
 	}
 
-	
 	public static function non_legacy_add_dashboard_nav_content()
 	{
 		$announcements = DA_Helpers::get_announcement_query_data();

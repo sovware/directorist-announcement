@@ -8,79 +8,92 @@
     padding: 25px 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
+
 .directorist-announcement-wrapper .directorist-announcement {
     font-size: 15px;
     display: flex;
     align-items: center;
     padding-bottom: 15.5px;
     margin-bottom: 15.5px;
-    border-bottom: 1px solid #F1F2F6;
+    border-bottom: 1px solid #f1f2f6;
 }
+
 .directorist-announcement-wrapper .directorist-announcement:last-child {
     padding-bottom: 0;
     margin-bottom: 0;
     border-bottom: 0 none;
 }
+
 @media (max-width: 479px) {
     .directorist-announcement-wrapper .directorist-announcement {
-      flex-direction: column;
+        flex-direction: column;
     }
 }
+
 .directorist-announcement-wrapper .directorist-announcement__date {
     flex: 0.4217;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F5F6F8;
+    background-color: #f5f6f8;
     border-radius: 6px;
     padding: 10.5px;
     min-width: 120px;
 }
+
 @media (max-width: 1199px) {
     .directorist-announcement-wrapper .directorist-announcement__date {
-      flex: 1;
+        flex: 1;
     }
 }
+
 @media (max-width: 479px) {
     .directorist-announcement-wrapper .directorist-announcement__date {
-      flex: 100%;
-      width: 100%;
-      flex-direction: row;
-      justify-content: center;
+        flex: 100%;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
     }
 }
+
 .directorist-announcement-wrapper .directorist-announcement__date__part-one {
     font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
-    color: #171B2E;
+    color: #171b2e;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__date__part-two {
     font-size: 14px;
     font-weight: 400;
-    color: #5A5F7D;
+    color: #5a5f7d;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__date__part-three {
     font-size: 14px;
     font-weight: 500;
-    color: #171B2E;
+    color: #171b2e;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__content {
     flex: 8;
     padding-left: 15px;
 }
+
 @media (max-width: 1199px) {
     .directorist-announcement-wrapper .directorist-announcement__content {
-     flex: 6;
+        flex: 6;
     }
 }
+
 @media (max-width: 479px) {
     .directorist-announcement-wrapper .directorist-announcement__content {
-      padding-left: 0;
-      margin: 12px 0 6px;
-      text-align: center;
+        padding-left: 0;
+        margin: 12px 0 6px;
+        text-align: center;
     }
 }
+
 .directorist-announcement-wrapper .directorist-announcement__content .directorist-announcement__title {
     font-size: 18px;
     font-weight: 500;
@@ -88,25 +101,30 @@
     margin-bottom: 6px;
     margin-top: 0;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__content .directorist-announcement__title p {
     font-size: 14px;
     font-weight: 400;
-    color: #69708E;
+    color: #69708e;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__content .directorist-announcement__title p:empty {
     display: none;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__content p:empty {
     display: none;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__close {
     flex: 0;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__close .close-announcement {
     height: 36px;
     width: 36px;
     border-radius: 50%;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     border: 0 none;
     padding: 0;
     transition: 0.35s;
@@ -114,18 +132,21 @@
     align-items: center;
     justify-content: center;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__close .close-announcement .directorist-icon-mask:after {
     transition: 0.35s;
     background-color: #474868;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover {
-    background-color: #EF0000;
+    background-color: #ef0000;
 }
+
 .directorist-announcement-wrapper .directorist-announcement__close .close-announcement:hover .directorist-icon-mask:after {
     background-color: #fff;
-  }
+}
 
-  #announcement_submit .vp-input ~ span {
+#announcement_submit .vp-input~span {
     display: flex;
     background: #007cba;
     align-items: center;
@@ -136,14 +157,33 @@
     background-image: none;
     width: 80px;
     cursor: pointer;
-  }
-  #announcement_submit .vp-input ~ span:after {
+}
+
+#announcement_submit .vp-input~span:after {
     content: "Send";
-  }
-  #announcement_submit .label {
+}
+
+#announcement_submit .label {
     visibility: hidden;
-  }
-  
-  .announcement-feedback {
+}
+
+.announcement-feedback {
     margin-bottom: 15px;
-  }
+}
+
+.directorist-announcement-count {
+    display: none;
+    border-radius: 30px;
+    min-width: 20px;
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    margin: 0 10px;
+    vertical-align: middle;
+    background-color: #ff3c3c;
+}
+
+.directorist-announcement-count.show {
+    display: inline-block;
+}
