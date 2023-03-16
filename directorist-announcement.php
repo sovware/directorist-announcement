@@ -55,7 +55,7 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 		public function includes() {
 			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-helpers.php';
 			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-settings.php';
-			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-announcement-view.php';
+			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-frontend-view.php';
 			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-content-update.php';
 		}
 

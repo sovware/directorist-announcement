@@ -31,7 +31,7 @@ class DA_Settings
 
 	public static function announcement_menu($fields)
 	{
-		$fields['announcement_settings'] = [
+		$announcement['announcement_settings'] = [
 			'label'     => __('Announcement', 'directorist'),
 			'icon' => '<i class="fa fa-bullhorn"></i>',
 			'sections'  => apply_filters('atbdp_announcement_settings_controls', [
@@ -42,6 +42,8 @@ class DA_Settings
 				],
 			]),
 		];
+
+		$fields = array_merge($announcement, $fields);
 
 		return $fields;
 	}

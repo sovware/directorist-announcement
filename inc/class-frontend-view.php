@@ -37,7 +37,7 @@ class DA_Frontend
 		if ($announcement_tab) {
 
 			ob_start();
-			Directorist_Announcement::get_template('template-parts/announcement-list', ['dashboard' => $args]);
+			Directorist_Announcement::get_template('template-parts/list', ['dashboard' => $args]);
 			$content = ob_get_clean();
 
 			$dashboard_tabs['dashboard_announcement'] = array(
