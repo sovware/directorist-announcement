@@ -7,179 +7,191 @@
 
 namespace wpWax\DA;
 
-class DA_Settings
-{
+class DA_Settings {
+
 
 	protected static $instance = null;
 
-	public function __construct()
-	{
-		/*show the select box form field to select an icon*/
-		add_filter('atbdp_tools_submenu', [$this, 'announcement_menu']);
-		add_filter('atbdp_listing_type_settings_field_list', [$this, 'register_setting_fields']);
-		add_filter('atbdp_listing_settings_user_dashboard_sections', [$this, 'setting_fields_tab']);
+	public function __construct() {
+		 /*show the select box form field to select an icon*/
+		add_filter( 'atbdp_tools_submenu', array( $this, 'announcement_menu' ) );
+		add_filter( 'atbdp_listing_type_settings_field_list', array( $this, 'register_setting_fields' ) );
+		add_filter( 'atbdp_listing_settings_user_dashboard_sections', array( $this, 'setting_fields_tab' ) );
 	}
 
-	public static function instance()
-	{
-		if (null == self::$instance) {
-			self::$instance = new self;
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self();
 		}
 
 		return self::$instance;
 	}
 
-	public static function announcement_menu($fields)
-	{
-		$announcement['announcement_settings'] = [
-			'label'     => __('Announcement', 'directorist'),
-			'icon' => '<i class="fa fa-bullhorn"></i>',
-			'sections'  => apply_filters('atbdp_announcement_settings_controls', [
-				'send-announcement'     => [
-					'fields'        => [
-						'announcement',
-					]
-				],
-			]),
-		];
+	public static function announcement_menu( $fields ) {
+		$announcement['announcement_settings'] = array(
+			'label'     => __( 'Announcement', 'directorist-announcement' ),
+			'icon'      => '<i class="fa fa-bullhorn"></i>',
+			'sections'  => apply_filters(
+				'atbdp_announcement_settings_controls',
+				array(
+					'send-announcement' => array(
+						'fields' => array(
+							'announcement',
+						),
+					),
+				)
+			),
+		);
 
-		$fields = array_merge($announcement, $fields);
+		$fields = array_merge( $announcement, $fields );
 
 		return $fields;
 	}
 
-	public static function register_setting_fields($fields = [])
-	{
-		$users = get_users(
+	public static function register_setting_fields( $fields = array() ) {
+		$users     = get_users(
 			array(
 				'role__not_in' => 'Administrator',   // Administrator | Subscriber
-				'number'       => apply_filters('directorist_announcement_user_query_num', 1000),
+				'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
 			)
 		);
-		$recipient = [];
+		$recipient = array();
 
-		if (!empty($users)) {
-			foreach ($users as $user) {
-				$recipient[] = [
+		if ( ! empty( $users ) ) {
+			foreach ( $users as $user ) {
+				$recipient[] = array(
 					'value' => $user->user_email,
-					'label' => (!empty($user->display_name)) ? $user->display_name : $user->user_nicename,
-				];
+					'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
+				);
 			}
 		}
 
-		$fields['announcement'] = [
+		$fields['announcement'] = array(
 			'type'                       => 'ajax-action',
 			'action'                     => 'atbdp_send_announcement',
 			'label'                      => '',
 			'button-label'               => 'Send',
 			'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Sending',
-			'option-fields' => [
-				'to' => [
-					'type' => 'select',
-					'label' => 'To',
-					'options' => [
-						['value' => 'all_user', 'label' => 'All User'],
-						['value' => 'selected_user', 'label' => 'Selected User'],
-					],
-					'value' => 'all_user',
-				],
-				'recipient' => [
+			'option-fields'              => array(
+				'to' => array(
+					'type'    => 'select',
+					'label'   => 'To',
+					'options' => array(
+						array(
+							'value' => 'all_user',
+							'label' => 'All User',
+						),
+						array(
+							'value' => 'selected_user',
+							'label' => 'Selected User',
+						),
+					),
+					'value'   => 'all_user',
+				),
+				'recipient' => array(
 					'type'    => 'checkbox',
 					'label'   => 'Recipients',
 					'options' => $recipient,
 					'value'   => '',
-					'show-if' => [
-						'where' => "self.to",
-						'conditions' => [
-							['key' => 'value', 'compare' => '=', 'value' => 'selected_user'],
-						],
-					],
-				],
-				'subject' => [
+					'show-if' => array(
+						'where'      => 'self.to',
+						'conditions' => array(
+							array(
+								'key'     => 'value',
+								'compare' => '=',
+								'value'   => 'selected_user',
+							),
+						),
+					),
+				),
+				'subject' => array(
 					'type'  => 'text',
 					'label' => 'Subject',
 					'value' => '',
-				],
-				'message' => [
+				),
+				'message' => array(
 					'type'        => 'textarea',
 					'label'       => 'Message',
 					'description' => 'Maximum 400 characters are allowed',
 					'value'       => '',
-				],
-				'expiration' => [
+				),
+				'expiration' => array(
 					'type'  => 'range',
 					'min'   => '0',
 					'max'   => '365',
 					'label' => 'Expires in Days',
 					'value' => 0,
-				],
-				'send_to_email' => [
+				),
+				'send_to_email' => array(
 					'type'  => 'toggle',
 					'label' => 'Send a copy to email',
 					'value' => true,
-				],
-				'nonce' => [
+				),
+				'nonce' => array(
 					'type'  => 'hidden',
-					'value' => wp_create_nonce(directorist_get_nonce_key()),
-				],
-			],
-			'value' => '',
-			'save-option-data' => false,
-		];
+					'value' => wp_create_nonce( directorist_get_nonce_key() ),
+				),
+			),
+			'value'                      => '',
+			'save-option-data'           => false,
+		);
 
-		$fields['listing_import_button'] = [
-			'announcement_to' => [
-				'label'     => __('To', 'directorist'),
+		$fields['listing_import_button'] = array(
+			'announcement_to' => array(
+				'label'     => __( 'To', 'directorist-announcement' ),
 				'type'      => 'select',
 				'value'     => 'all_user',
-				'options'   => [
-					[
+				'options'   => array(
+					array(
 						'value' => 'all_user',
-						'label' => __('All User', 'directorist')
-					],
-					[
+						'label' => __( 'All User', 'directorist-announcement' ),
+					),
+					array(
 						'value' => 'selected_user',
-						'label' => __('Selected User', 'directorist')
-					]
-				]
-			],
+						'label' => __( 'Selected User', 'directorist-announcement' ),
+					),
+				),
+			),
 
-			'announcement_subject' => [
-				'label' => __('Subject', 'directorist'),
+			'announcement_subject' => array(
+				'label' => __( 'Subject', 'directorist-announcement' ),
 				'type'  => 'text',
-				'value' => false
-			],
+				'value' => false,
+			),
 
-			'announcement_send_to_email' => [
-				'label'   => __('Send a copy to email', 'directorist'),
+			'announcement_send_to_email' => array(
+				'label'   => __( 'Send a copy to email', 'directorist-announcement' ),
 				'type'    => 'toggle',
-				'value' => true,
-			],
-			'announcement_tab' => [
+				'value'   => true,
+			),
+			'announcement_tab' => array(
 				'type'  => 'toggle',
-				'label' => __('Display Announcements Tab', 'directorist'),
+				'label' => __( 'Display Announcements Tab', 'directorist-announcement' ),
 				'value' => true,
-			],
-			'announcement_tab_text'    => [
+			),
+			'announcement_tab_text' => array(
 				'type'          => 'text',
-				'label'         => __('"Announcement" Tab Label', 'directorist'),
-				'value'         => __('Announcements', 'directorist'),
-				'show-if' => [
-					'where' => "announcement_tab",
-					'conditions' => [
-						['key' => 'value', 'compare' => '=', 'value' => true],
-					],
-				],
-			],
-		];
+				'label'         => __( '"Announcement" Tab Label', 'directorist-announcement' ),
+				'value'         => __( 'Announcements', 'directorist-announcement' ),
+				'show-if'       => array(
+					'where'      => 'announcement_tab',
+					'conditions' => array(
+						array(
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true,
+						),
+					),
+				),
+			),
+		);
 
 		return $fields;
 	}
 
-	public static function setting_fields_tab($fields = [])
-	{
-		$array_fields = is_array($fields['general_dashboard']['fields']) ? $fields['general_dashboard']['fields'] : [];
-		array_push($array_fields, 'announcement_tab', 'announcement_tab_text');
+	public static function setting_fields_tab( $fields = array() ) {
+		$array_fields = is_array( $fields['general_dashboard']['fields'] ) ? $fields['general_dashboard']['fields'] : array();
+		array_push( $array_fields, 'announcement_tab', 'announcement_tab_text' );
 		return $fields;
 	}
 }

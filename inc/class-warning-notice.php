@@ -33,11 +33,16 @@ class DTKWarning {
 		?>
 		<div class="error">
 			<p>
-			<?php _e( 'Directorist - Announcement requires <a href="https://wordpress.org/plugins/directorist/" target="_blank">Directorist - Business Directory Plugin</a> to be activated.',
-			'directorist-announcement' );?>
+			<?php 
+			_e(
+				'Directorist - Announcement requires <a href="https://wordpress.org/plugins/directorist/" target="_blank">Directorist - Business Directory Plugin</a> to be activated.',
+				'directorist-announcement' 
+			);
+			?>
 			</p>
 		</div>
-	<?php }
+		<?php 
+	}
 }
 
 DTKWarning::instance();

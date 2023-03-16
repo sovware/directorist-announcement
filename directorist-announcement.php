@@ -8,15 +8,15 @@ Author:         wpWax
 Author URI:     https://directorist.com/
 */
 
-defined('ABSPATH') || die('No direct script access allowed!');
+defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
-if ( ! defined('DIRECTORIST_ANNOUNCEMENT_VERSION') ) {
+if ( ! defined( 'DIRECTORIST_ANNOUNCEMENT_VERSION' ) ) {
 	$plugin_data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
 	define( 'DIRECTORIST_ANNOUNCEMENT_VERSION', $plugin_data['version'] );
 }
 
-if ( ! defined('DIRECTORIST_ANNOUNCEMENT_BASE_DIR') ) {
-	define( 'DIRECTORIST_ANNOUNCEMENT_BASE_DIR',  plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'DIRECTORIST_ANNOUNCEMENT_BASE_DIR' ) ) {
+	define( 'DIRECTORIST_ANNOUNCEMENT_BASE_DIR', plugin_dir_path( __FILE__ ) );
 }
 
 if ( ! class_exists( 'Directorist_Announcement' ) ) {
@@ -42,9 +42,9 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 		}
 
 		public static function plugins_loaded() {
-			load_plugin_textdomain( 'directorist-announcement' , false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( 'directorist-announcement', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
-			require_once ( ABSPATH . '/wp-admin/includes/plugin.php' );
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
 			if ( ! is_plugin_active( 'directorist/directorist-base.php' ) ) {
 				deactivate_plugins( 'directorist-announcement/directorist-announcement.php' );
@@ -73,17 +73,17 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 
 		public function scripts() {
 
-			//CSS Register
-			wp_register_style( 'directorist-announcement-style', plugin_dir_url(__FILE__) . 'assets/css/announcement-main.css', array(), DIRECTORIST_ANNOUNCEMENT_VERSION );
+			// CSS Register
+			wp_register_style( 'directorist-announcement-style', plugin_dir_url( __FILE__ ) . 'assets/css/announcement-main.css', array(), DIRECTORIST_ANNOUNCEMENT_VERSION );
 
-			//JS Register
-			wp_register_script( 'directorist-announcement-admin-script', plugin_dir_url(__FILE__) . 'assets/js/admin.js', array( 'jquery' ), DIRECTORIST_ANNOUNCEMENT_VERSION, true );
-			wp_register_script( 'directorist-announcement-script', plugin_dir_url(__FILE__) . 'assets/js/main.js', array( 'jquery' ), DIRECTORIST_ANNOUNCEMENT_VERSION, true );
+			// JS Register
+			wp_register_script( 'directorist-announcement-admin-script', plugin_dir_url( __FILE__ ) . 'assets/js/admin.js', array( 'jquery' ), DIRECTORIST_ANNOUNCEMENT_VERSION, true );
+			wp_register_script( 'directorist-announcement-script', plugin_dir_url( __FILE__ ) . 'assets/js/main.js', array( 'jquery' ), DIRECTORIST_ANNOUNCEMENT_VERSION, true );
 
-			//CSS Enqueue
+			// CSS Enqueue
 			wp_enqueue_style( 'directorist-announcement-style' );
 
-			//JS Enqueue
+			// JS Enqueue
 			wp_enqueue_script( 'directorist-announcement-admin-script' );
 			wp_enqueue_script( 'directorist-announcement-script' );
 
