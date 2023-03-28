@@ -7,6 +7,7 @@
 
 namespace wpWax\DA;
 
+use Directorist\Directorist_Listing_Dashboard;
 use Directorist_Announcement;
 
 class DA_Frontend {
@@ -16,7 +17,7 @@ class DA_Frontend {
 
 	public function __construct() {
 		 /*show the select box form field to select an icon*/
-		add_filter( 'directorist_dashboard_tabs', array( $this, 'dashboard_tabs' ), 10, 2 );
+		add_filter( 'directorist_dashboard_tabs', array( $this, 'dashboard_tabs' ) );
 	}
 
 	public static function instance() {
@@ -27,14 +28,16 @@ class DA_Frontend {
 		return self::$instance;
 	}
 
-	public function dashboard_tabs( $dashboard_tabs, $args ) {
+	public function dashboard_tabs( $dashboard_tabs ) {
+
+		$dashboard_class = Directorist_Listing_Dashboard::instance();
 		// Tabs
 		$announcement_tab = get_directorist_option( 'announcement_tab', 1 );
 		
 		if ( $announcement_tab ) {
 
 			ob_start();
-			Directorist_Announcement::get_template( 'template-parts/list', array( 'dashboard' => $args ) );
+			Directorist_Announcement::get_template( 'template-parts/list', array( 'dashboard' => $dashboard_class ) );
 			$content = ob_get_clean();
 
 			$dashboard_tabs['dashboard_announcement'] = array(
