@@ -190,7 +190,9 @@ class DA_Settings {
 	}
 
 	public static function setting_fields_tab( $fields = array() ) {
-		$array_fields = is_array( $fields['general_dashboard']['fields'] ) ? $fields['general_dashboard']['fields'] : array();
+
+		$array_fields = isset( $fields['general_dashboard'] ) && is_array( $fields['general_dashboard']['fields'] ) ? $fields['general_dashboard']['fields'] : array();
+
 		array_push( $array_fields, 'announcement_tab', 'announcement_tab_text' );
 		return $fields;
 	}
