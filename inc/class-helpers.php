@@ -28,14 +28,8 @@ class DA_Helpers {
 		$current_user_email  = get_the_author_meta( 'user_email', get_current_user_id() );
 
 		foreach ( $announcements_query->posts as $announcement ) {
-			$id        = $announcement->ID;
-			$recepents = get_post_meta( $id, '_recepents', true );
 
-			if ( ! empty( $recepents ) && is_array( $recepents ) ) {
-				if ( ! in_array( $current_user_email, $recepents ) ) {
-					continue;
-				}
-			}
+			$id = $announcement->ID;
 
 			$announcements[ $id ] = array(
 				'title'   => get_the_title( $id ),
@@ -52,6 +46,7 @@ class DA_Helpers {
 			array(
 				'post_type'      => 'listing-announcement',
 				'posts_per_page' => 20,
+				'author' => get_current_user_id(),
 				'meta_query'     => array(
 					'relation' => 'AND',
 					array(
@@ -218,7 +213,7 @@ class DA_Helpers {
 		$total_posts        = count( $announcements->posts );
 		$skipped_post_count = 0;
 		$current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
-
+		//e_var_dump( $announcements );
 		?>
 		<div class="atbd_tab_inner" id="announcement">
 			<div class="atbd_announcement_wrapper">

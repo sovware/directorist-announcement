@@ -77,7 +77,9 @@ class DA_Update {
 	}
 
 	// send_announcement
-	public function send_announcement() { 		$nonce         = isset($_POST['nonce']) ? wp_unslash($_POST['nonce']) : ''; // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	public function send_announcement() {
+
+		$nonce         = isset($_POST['nonce']) ? wp_unslash($_POST['nonce']) : ''; // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$to            = isset( $_POST['to'] ) ? sanitize_text_field( wp_unslash( $_POST['to'] ) ) : 'all_user';
 		$recipient     = isset( $_POST['recipient'] ) ? sanitize_text_field( wp_unslash( $_POST['recipient'] ) ) : '';
 		$subject       = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
@@ -117,16 +119,21 @@ class DA_Update {
 			$status['message'] = __( 'Maximum 400 characters are allowed for the message', 'directorist-announcement' );
 			wp_send_json( $status );
 		}
+		
+		$users_email = ( 'all_user' === $to ) ? DA_Helpers::get_all_user_emails() : explode( ',', $recipient );
 
-		// Save the post
-		$announcement = wp_insert_post(
-			array(
-				'post_type'    => 'listing-announcement',
-				'post_title'   => $subject,
-				'post_content' => $message,
-				'post_status'  => 'publish',
-			)
-		);
+		foreach( $users_email as $email ) {
+			// Save the post
+			$announcement = wp_insert_post(
+				array(
+					'post_type'    => 'listing-announcement',
+					'post_title'   => $subject,
+					'post_content' => $message,
+					'post_status'  => 'publish',
+					'post_author'  => email_exists( $email ),
+				)
+			);
+		}
 
 		if ( is_wp_error( $announcement ) ) {
 			$status['message'] = __( 'Sorry, something went wrong, please try again', 'directorist-announcement' );
