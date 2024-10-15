@@ -14,7 +14,7 @@ class DA_Settings {
 
 	public function __construct() {
 		 /*show the select box form field to select an icon*/
-		add_filter( 'atbdp_tools_submenu', array( $this, 'announcement_menu' ) );
+		add_filter( 'atbdp_extension_settings_submenu', array( $this, 'announcement_menu' ) );
 		add_filter( 'atbdp_listing_type_settings_field_list', array( $this, 'register_setting_fields' ) );
 		add_filter( 'atbdp_listing_settings_user_dashboard_sections', array( $this, 'setting_fields_tab' ) );
 	}
@@ -27,8 +27,8 @@ class DA_Settings {
 		return self::$instance;
 	}
 
-	public static function announcement_menu( $fields ) {
-		$announcement['announcement_settings'] = array(
+	public static function announcement_menu( $submenu ) {
+		$submenu['announcement_settings'] = array(
 			'label'     => __( 'Announcement', 'directorist-announcement' ),
 			'icon'      => '<i class="fa fa-bullhorn"></i>',
 			'sections'  => apply_filters(
@@ -43,9 +43,7 @@ class DA_Settings {
 			),
 		);
 
-		$fields = array_merge( $announcement, $fields );
-
-		return $fields;
+		return $submenu;
 	}
 
 	public static function register_setting_fields( $fields = array() ) {
@@ -134,56 +132,6 @@ class DA_Settings {
 			),
 			'value'                      => '',
 			'save-option-data'           => false,
-		);
-
-		$fields['listing_import_button'] = array(
-			'announcement_to' => array(
-				'label'     => __( 'To', 'directorist-announcement' ),
-				'type'      => 'select',
-				'value'     => 'all_user',
-				'options'   => array(
-					array(
-						'value' => 'all_user',
-						'label' => __( 'All User', 'directorist-announcement' ),
-					),
-					array(
-						'value' => 'selected_user',
-						'label' => __( 'Selected User', 'directorist-announcement' ),
-					),
-				),
-			),
-
-			'announcement_subject' => array(
-				'label' => __( 'Subject', 'directorist-announcement' ),
-				'type'  => 'text',
-				'value' => false,
-			),
-
-			'announcement_send_to_email' => array(
-				'label'   => __( 'Send a copy to email', 'directorist-announcement' ),
-				'type'    => 'toggle',
-				'value'   => true,
-			),
-			'announcement_tab' => array(
-				'type'  => 'toggle',
-				'label' => __( 'Display Announcements Tab', 'directorist-announcement' ),
-				'value' => true,
-			),
-			'announcement_tab_text' => array(
-				'type'          => 'text',
-				'label'         => __( '"Announcement" Tab Label', 'directorist-announcement' ),
-				'value'         => __( 'Announcements', 'directorist-announcement' ),
-				'show-if'       => array(
-					'where'      => 'announcement_tab',
-					'conditions' => array(
-						array(
-							'key'     => 'value',
-							'compare' => '=',
-							'value'   => true,
-						),
-					),
-				),
-			),
 		);
 
 		return $fields;

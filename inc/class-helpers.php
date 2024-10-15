@@ -30,6 +30,14 @@ class DA_Helpers {
 		foreach ( $announcements_query->posts as $announcement ) {
 
 			$id = $announcement->ID;
+			$recepents = get_post_meta( $id, '_recepents', true );
+			$recepents = ! empty( $recepents ) ? explode( ',', $recepents ) : [];
+
+			if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+				if ( ! in_array( $current_user_email, $recepents ) ) {
+					continue;
+				}
+			}
 
 			$announcements[ $id ] = array(
 				'title'   => get_the_title( $id ),
