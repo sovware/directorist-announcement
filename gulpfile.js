@@ -20,7 +20,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('zip', function () {
-	return gulp.src(['**', '!__*/**', '!node_modules/**', '!src/**', '!gulpfile.js', '!.DS_Store', '!package.json', '!package-lock.json', '!todo.txt', '!sftp-config.json', '!testing.html', '!composer.json', '!composer.lock', '!phpcs.xml.dist'], { base: '..' })
+	return gulp.src(['**', '!__*/**', '!node_modules/**', '!src/**', '!gulpfile.js', '!.DS_Store', '!package.json', '!package-lock.json', '!todo.txt', '!sftp-config.json', '!testing.html', '!composer.json', '!composer.lock', '!phpcs.xml.dist', '!vendor/**'], { base: '..' })
 		.pipe(zip(project.name + '.zip'))
 		.pipe(gulp.dest('__build'));
 });

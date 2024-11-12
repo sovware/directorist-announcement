@@ -1,4 +1,4 @@
-# Copyright (C) 2023 directorist-announcement
+# Copyright (C) 2024 directorist-announcement
 # This file is distributed under the same license as the directorist-announcement package.
 msgid ""
 msgstr ""
@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: sovware <support@sovware.com>\n"
-"POT-Creation-Date: 2023-03-16 05:45+0000\n"
+"POT-Creation-Date: 2024-11-12 12:17+0000\n"
 "Project-Id-Version: undefined\n"
 "Report-Msgid-Bugs-To: support@sovware.com\n"
 "X-Poedit-Basepath: ..\n"
@@ -17,80 +17,52 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inc/class-content-update.php:90, inc/class-content-update.php:132, inc/class-content-update.php:232, inc/class-content-update.php:240
+#: inc/class-content-update.php:92, inc/class-content-update.php:139, inc/class-content-update.php:239, inc/class-content-update.php:247
 msgid "Sorry, something went wrong, please try again"
 msgstr ""
 
-#: inc/class-content-update.php:94
+#: inc/class-content-update.php:96
 msgid "Invalid request"
 msgstr ""
 
-#: inc/class-content-update.php:100
+#: inc/class-content-update.php:102
 msgid "You are not allowed to send announcement"
 msgstr ""
 
-#: inc/class-content-update.php:106
+#: inc/class-content-update.php:108
 msgid "The subject cannot be empty"
 msgstr ""
 
-#: inc/class-content-update.php:112
+#: inc/class-content-update.php:114
 msgid "The message cannot be empty"
 msgstr ""
 
-#: inc/class-content-update.php:117
+#: inc/class-content-update.php:119
 msgid "Maximum 400 characters are allowed for the message"
 msgstr ""
 
-#: inc/class-content-update.php:149, inc/class-content-update.php:163
+#: inc/class-content-update.php:156, inc/class-content-update.php:170
 msgid "No recipient found"
 msgstr ""
 
-#: inc/class-content-update.php:198
+#: inc/class-content-update.php:205
 msgid "The announcement has been sent successfully"
 msgstr ""
 
-#: inc/class-content-update.php:205, inc/class-helpers.php:17, inc/class-helpers.php:195, inc/class-settings.php:175
+#: inc/class-content-update.php:212, inc/class-helpers.php:17, inc/class-helpers.php:198
 msgid "Announcements"
 msgstr ""
 
-#: inc/class-content-update.php:247
+#: inc/class-content-update.php:254
 msgid "The announcement has been closed successfully"
 msgstr ""
 
-#: inc/class-helpers.php:177, inc/class-helpers.php:183, inc/class-helpers.php:263, inc/class-helpers.php:269
+#: inc/class-helpers.php:180, inc/class-helpers.php:186, inc/class-helpers.php:266, inc/class-helpers.php:272
 msgid "No announcement found"
 msgstr ""
 
 #: inc/class-settings.php:32
 msgid "Announcement"
-msgstr ""
-
-#: inc/class-settings.php:141
-msgid "To"
-msgstr ""
-
-#: inc/class-settings.php:147
-msgid "All User"
-msgstr ""
-
-#: inc/class-settings.php:151
-msgid "Selected User"
-msgstr ""
-
-#: inc/class-settings.php:157
-msgid "Subject"
-msgstr ""
-
-#: inc/class-settings.php:163
-msgid "Send a copy to email"
-msgstr ""
-
-#: inc/class-settings.php:169
-msgid "Display Announcements Tab"
-msgstr ""
-
-#: inc/class-settings.php:174
-msgid "\"Announcement\" Tab Label"
 msgstr ""
 
 #: inc/class-warning-notice.php:37
