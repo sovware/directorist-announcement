@@ -3,7 +3,7 @@
 Plugin Name:    Directorist Announcement
 Plugin URI:     https://directorist.com
 Description:    Make an announcement to all the users or any selected users on your site.
-Version:        2.1
+Version:        2.2
 Author:         wpWax
 Author URI:     https://directorist.com/
 */
@@ -25,8 +25,8 @@ if (!defined('ATBDP_AUTHOR_URL')) {
 }
 
 // post id from download post type (edd)
-if (!defined('ATBDP_BDB_POST_ID')) {
-	define('ATBDP_BDB_POST_ID', 308031);
+if (!defined('ATBDP_DIR_ANNOUNCE_POST_ID')) {
+	define('ATBDP_DIR_ANNOUNCE_POST_ID', 308031);
 }
 
 if ( ! class_exists( 'Directorist_Announcement' ) ) {
@@ -53,12 +53,13 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 		}
 
 		public function update_controller() {
-            $data        = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $data = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
             $license_key = ! empty( $data['directorist-announcement'] ) ? $data['directorist-announcement']['license'] : '';
+
             new EDD_SL_Plugin_Updater(ATBDP_AUTHOR_URL, __FILE__, array(
                 'version' => get_plugin_data( __FILE__ )['Version'],        // current version number
                 'license' => $license_key,    // license key (used get_option above to retrieve from DB)
-                'item_id' => ATBDP_BDB_POST_ID,    // id of this plugin
+                'item_id' => ATBDP_DIR_ANNOUNCE_POST_ID,    // id of this plugin
                 'author' => 'AazzTech',    // author of this plugin
                 'url' => home_url(),
                 'beta' => false // set to true if you wish customers to receive update notifications of beta releases
