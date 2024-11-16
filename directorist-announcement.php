@@ -3,7 +3,7 @@
 Plugin Name:    Directorist Announcement
 Plugin URI:     https://directorist.com
 Description:    Make an announcement to all the users or any selected users on your site.
-Version:        2.0
+Version:        1.0
 Author:         wpWax
 Author URI:     https://directorist.com/
 */
@@ -17,6 +17,16 @@ if ( ! defined( 'DIRECTORIST_ANNOUNCEMENT_VERSION' ) ) {
 
 if ( ! defined( 'DIRECTORIST_ANNOUNCEMENT_BASE_DIR' ) ) {
 	define( 'DIRECTORIST_ANNOUNCEMENT_BASE_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+// plugin author url
+if (!defined('ATBDP_AUTHOR_URL')) {
+	define('ATBDP_AUTHOR_URL', 'https://directorist.com');
+}
+
+// post id from download post type (edd)
+if (!defined('ATBDP_BDB_POST_ID')) {
+	define('ATBDP_BDB_POST_ID', 308031);
 }
 
 if ( ! class_exists( 'Directorist_Announcement' ) ) {
@@ -39,7 +49,21 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 			add_action( 'directorist_loaded', array( $this, 'includes' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
+			add_action( 'admin_init', [ $this, 'update_controller' ] );
 		}
+
+		public function update_controller() {
+            $data        = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $license_key = ! empty( $data['directorist-announcement'] ) ? $data['directorist-announcement']['license'] : '';
+            new EDD_SL_Plugin_Updater(ATBDP_AUTHOR_URL, __FILE__, array(
+                'version' => get_plugin_data( __FILE__ )['Version'],        // current version number
+                'license' => $license_key,    // license key (used get_option above to retrieve from DB)
+                'item_id' => ATBDP_BDB_POST_ID,    // id of this plugin
+                'author' => 'AazzTech',    // author of this plugin
+                'url' => home_url(),
+                'beta' => false // set to true if you wish customers to receive update notifications of beta releases
+            ));
+        }
 
 		public static function plugins_loaded() {
 			load_plugin_textdomain( 'directorist-announcement', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -57,6 +81,11 @@ if ( ! class_exists( 'Directorist_Announcement' ) ) {
 			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-settings.php';
 			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-frontend-view.php';
 			require_once DIRECTORIST_ANNOUNCEMENT_BASE_DIR . 'inc/class-content-update.php';
+			// setup the updater
+            if (!class_exists('EDD_SL_Plugin_Updater')) {
+                // load our custom updater if it doesn't already exist
+                include(dirname(__FILE__) . '/inc/EDD_SL_Plugin_Updater.php');
+            }
 		}
 
 		public static function get_template( $template_file, $args = array() ) {
