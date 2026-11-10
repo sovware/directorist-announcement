@@ -16,7 +16,7 @@ class DA_Settings {
 		 /*show the select box form field to select an icon*/
 		add_filter( 'atbdp_extension_settings_submenu', array( $this, 'announcement_menu' ) );
 		add_filter( 'atbdp_listing_type_settings_field_list', array( $this, 'register_setting_fields' ) );
-		add_filter( 'atbdp_listing_settings_user_dashboard_sections', array( $this, 'setting_fields_tab' ) );
+		add_filter( 'atbdp_listing_type_settings_layout', array( $this, 'register_dashboard_settings' ) );
 	}
 
 	public static function instance() {
@@ -47,6 +47,27 @@ class DA_Settings {
 	}
 
 	public static function register_setting_fields( $fields = array() ) {
+		$fields['announcement_tab']      = array(
+			'type'  => 'toggle',
+			'label' => __( 'Display Announcements Tab', 'directorist-announcement' ),
+			'value' => true,
+		);
+		$fields['announcement_tab_text'] = array(
+			'type'    => 'text',
+			'label'   => __( '"Announcement" Tab Label', 'directorist-announcement' ),
+			'value'   => __( 'Announcements', 'directorist-announcement' ),
+			'show-if' => array(
+				'where'      => 'announcement_tab',
+				'conditions' => array(
+					array(
+						'key'     => 'value',
+						'compare' => '=',
+						'value'   => true,
+					),
+				),
+			),
+		);
+
 		$users     = get_users(
 			array(
 				'role__not_in' => 'Administrator',   // Administrator | Subscriber
@@ -137,12 +158,32 @@ class DA_Settings {
 		return $fields;
 	}
 
-	public static function setting_fields_tab( $fields = array() ) {
+	/**
+	 * Expose the controls here when Core does not already provide them.
+	 *
+	 * @param array $layout Settings layout.
+	 * @return array
+	 */
+	public static function register_dashboard_settings( $layout = array() ) {
+		$dashboard_fields = isset( $layout['user_settings']['submenu']['user_dashboard']['sections']['general_dashboard']['fields'] )
+			? $layout['user_settings']['submenu']['user_dashboard']['sections']['general_dashboard']['fields']
+			: array();
+		if ( is_array( $dashboard_fields ) && in_array( 'announcement_tab', $dashboard_fields, true ) && in_array( 'announcement_tab_text', $dashboard_fields, true ) ) {
+			return $layout;
+		}
 
-		$array_fields = isset( $fields['general_dashboard'] ) && is_array( $fields['general_dashboard']['fields'] ) ? $fields['general_dashboard']['fields'] : array();
+		if ( ! isset( $layout['extension_settings']['submenu']['announcement_settings']['sections'] ) ) {
+			return $layout;
+		}
 
-		array_push( $array_fields, 'announcement_tab', 'announcement_tab_text' );
-		return $fields;
+		$layout['extension_settings']['submenu']['announcement_settings']['sections'] = array(
+			'dashboard_settings' => array(
+				'title'  => __( 'Dashboard', 'directorist-announcement' ),
+				'fields' => array( 'announcement_tab', 'announcement_tab_text' ),
+			),
+		) + $layout['extension_settings']['submenu']['announcement_settings']['sections'];
+
+		return $layout;
 	}
 }
 
