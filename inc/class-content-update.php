@@ -197,8 +197,13 @@ class DA_Update {
 		if ( $send_to_email ) {
 			$message = atbdp_email_html( $subject, $message );
 			$headers = ATBDP()->email->get_email_headers();
+			$to      = get_option( 'admin_email' );
 
-			ATBDP()->email->send_mail( $recipients, $subject, $message, $headers );
+			foreach ( $recipients as $recipient_email ) {
+				$headers .= "Bcc: {$recipient_email}\r\n";
+			}
+
+			ATBDP()->email->send_mail( $to, $subject, $message, $headers );
 		}
 
 		$status['success'] = true;
