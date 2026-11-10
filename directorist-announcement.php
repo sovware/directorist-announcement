@@ -3,7 +3,7 @@
 Plugin Name:    Directorist Announcement
 Plugin URI:     https://directorist.com
 Description:    Make an announcement to all the users or any selected users on your site.
-Version:        2.3
+Version:        2.4
 Author:         wpWax
 Author URI:     https://directorist.com/
 */
